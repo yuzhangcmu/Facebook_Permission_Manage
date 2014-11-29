@@ -2,10 +2,10 @@
 <merger version="2" >
 
     <dataSet config="main" >
-        <source path="/Users/fairydream/Development/FBproject_v2/app/src/main/assets" />
+        <source path="/Users/zhangyu/AndroidStudioProjects/Facebook_Permission_Manage/app/src/main/assets" />
     </dataSet>
     <dataSet config="debug" >
-        <source path="/Users/fairydream/Development/FBproject_v2/app/src/debug/assets" />
+        <source path="/Users/zhangyu/AndroidStudioProjects/Facebook_Permission_Manage/app/src/debug/assets" />
     </dataSet>
 
 </merger>

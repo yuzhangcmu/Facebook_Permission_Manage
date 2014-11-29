@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- From: file:/Users/fairydream/Development/FBproject_v2/app/src/main/res/values/dimens.xml -->
+    <!-- From: file:/Users/zhangyu/AndroidStudioProjects/Facebook_Permission_Manage/app/src/main/res/values/dimens.xml -->
     <eat-comment />
 
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <!-- From: file:/Users/fairydream/Development/FBproject_v2/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/zhangyu/AndroidStudioProjects/Facebook_Permission_Manage/app/src/main/res/values/strings.xml -->
     <eat-comment />
 
     <string name="No">No</string>
@@ -22,7 +22,7 @@
     <string name="title_activity_app_manager">AppManager</string>
     <string name="title_activity_permission_api">PermissionAPIActivity</string>
     <string name="title_activity_permission_setting">PermissionSettingActivity</string>
-    <!-- From: file:/Users/fairydream/Development/FBproject_v2/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/Users/zhangyu/AndroidStudioProjects/Facebook_Permission_Manage/app/src/main/res/values/styles.xml -->
     <eat-comment />
 
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
