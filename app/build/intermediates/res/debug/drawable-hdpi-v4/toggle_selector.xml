@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:state_checked="true" android:drawable="@drawable/toggle_on2"/>
+    <item android:drawable="@drawable/toggle_off2"/>
+</selector><!-- From: file:/Users/fairydream/Development/FBproject_v2/app/src/main/res/drawable-hdpi/toggle_selector.xml -->
