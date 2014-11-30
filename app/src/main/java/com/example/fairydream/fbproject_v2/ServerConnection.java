@@ -26,7 +26,7 @@ import java.util.Set;
  */
 public class ServerConnection
 {
-    private static final String serverAddress = "";
+    private static final String serverAddress = "http://10.0.23.82:8080/interface";
 
 
     /*

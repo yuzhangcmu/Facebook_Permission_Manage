@@ -140,7 +140,7 @@ public class LoginActivity extends Activity {
         public void run()
         {
 
-            Message.obtain(signUpHandler, SIGNUP_SUCCESS, "weeweew").sendToTarget();
+    //        Message.obtain(signUpHandler, SIGNUP_SUCCESS, "weeweew").sendToTarget();
 
             try
             {
@@ -148,7 +148,7 @@ public class LoginActivity extends Activity {
                 if (signUpResult!=null)
                 {
                     String[] signUpResultStems  = signUpResult.split("\t");
-                    if(signUpResult.length() == 2)
+                    if(signUpResultStems.length == 2)
                     {
                         if(signUpResultStems[0].equals("SUCCESS"))
                         {
@@ -171,6 +171,7 @@ public class LoginActivity extends Activity {
             }
             catch(Exception e)
             {
+                e.printStackTrace();
                 Message.obtain(signUpHandler, SIGNUP_FAILURE, "Please Check Your Internet Connection.").sendToTarget();
             }
         }
@@ -183,7 +184,7 @@ public class LoginActivity extends Activity {
         public void run()
         {
 
-          Message.obtain(signInHandler, SIGNIN_SUCCESS).sendToTarget();
+    //      Message.obtain(signInHandler, SIGNIN_SUCCESS).sendToTarget();
 
             // Send request to server
             DBManager dbManager = new DBManager(LoginActivity.this);
