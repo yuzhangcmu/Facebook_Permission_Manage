@@ -67,9 +67,11 @@ public class AppManagerActivity extends Activity {
 
         RequestLog requestLog1 = new RequestLog("23sdwe", "FB", curDate, "read_contact", "Nothing");
         RequestLog requestLog2 = new RequestLog("wewe222", "HappyCloud", curDate, "read_sms", "=====");
+        RequestLog requestLog3 = new RequestLog("20230806", "TFBOYS", curDate, "read_sms", "=====");
 
         dbManager.addLog(requestLog1);
         dbManager.addLog(requestLog2);
+        dbManager.addLog(requestLog3);
 
         dbManager.close();
 
