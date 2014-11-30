@@ -38,9 +38,9 @@
 	            android:layout_marginLeft="10dp"
 	            android:layout_marginTop="10dp"
 	            android:text="Always Notification"
-	            android:textColor="#8B0000"
+	            android:textColor="#ff000000"
 	            android:textSize="18sp"
-	            android:textStyle="bold" />
+	             />
 
 		    <ToggleButton
 		        android:id="@+id/notitog"
@@ -72,9 +72,9 @@
 	         android:layout_x="78dp"
 	         android:layout_y="108dp"
 	         android:text="Change Password"
-	         android:textColor="#8B0000"
+	         android:textColor="#33B5E5"
 	         android:textSize="18sp"
-	         android:textStyle="bold" />
+	          />
 
 	     <View
 	         android:layout_width="match_parent"
