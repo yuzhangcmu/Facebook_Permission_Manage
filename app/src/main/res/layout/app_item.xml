@@ -7,6 +7,16 @@
     android:paddingTop="10dp"
     android:paddingBottom="5dp">
 
+    <ImageView
+        android:id="@+id/head_portrait"
+        android:layout_width="60dip"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:contentDescription="The doctore head"
+        android:src="@drawable/facebook" />
+
     <TextView
         android:layout_height="wrap_content"
         android:textColor="#8B0000"

@@ -183,7 +183,7 @@ public class LoginActivity extends Activity {
         public void run()
         {
 
-       //   Message.obtain(loginHandler, SIGNIN_SUCCESS).sendToTarget();
+          Message.obtain(signInHandler, SIGNIN_SUCCESS).sendToTarget();
 
             // Send request to server
             DBManager dbManager = new DBManager(LoginActivity.this);
