@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -135,6 +136,9 @@ public class AppListFragment extends Fragment {
                 viewHolder = new ViewHolder();
                 viewHolder.appName = (TextView) convertView.findViewById(R.id.AppName);
                 viewHolder.appDescription = (TextView) convertView.findViewById(R.id.AppDescription);
+
+                /*  Added by Yu Zhang . */
+                viewHolder.app_pic = (ImageView) convertView.findViewById(R.id.app_pic);
                 convertView.setTag(viewHolder);
             }
             else
@@ -144,6 +148,17 @@ public class AppListFragment extends Fragment {
             viewHolder.appName.setText(appName);
             viewHolder.appDescription.setText(appDescription);
 
+            if (appName.equals("FB")) {
+                viewHolder.app_pic.setImageResource(R.drawable.facebook2);
+            } else if (appName.equals("HappyCloud")) {
+                viewHolder.app_pic.setImageResource(R.drawable.cloud5);
+            } else {
+                viewHolder.app_pic.setImageResource(R.drawable.cloud);
+            }
+
+
+            //ImageView head_portrait = (ImageView) layout.findViewById(R.id.head_portrait);
+
             return convertView;
         }
 
@@ -151,6 +166,7 @@ public class AppListFragment extends Fragment {
         private class ViewHolder {
             TextView appName;
             TextView appDescription;
+            ImageView app_pic;
         }
     }
 

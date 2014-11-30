@@ -8,7 +8,7 @@
     android:paddingBottom="5dp">
 
     <ImageView
-        android:id="@+id/head_portrait"
+        android:id="@+id/app_pic"
         android:layout_width="60dip"
         android:layout_height="55dip"
         android:layout_gravity="center_vertical"
@@ -24,7 +24,7 @@
         android:layout_width="fill_parent"
         android:id="@+id/AppName"
         android:text="Facebook"
-        android:layout_toEndOf="@+id/head_portrait"
+        android:layout_toEndOf="@+id/app_pic"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
@@ -35,8 +35,8 @@
 	    android:textSize="10sp"
         android:id="@+id/AppDescription"
         android:text="FacebookAppDescription"
-        android:layout_toEndOf="@+id/head_portrait"
+        android:layout_toEndOf="@+id/app_pic"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/head_portrait"
+        android:layout_toRightOf="@+id/app_pic"
         android:layout_marginLeft="178dp" />
 </RelativeLayout>
