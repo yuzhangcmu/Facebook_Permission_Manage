@@ -2,9 +2,11 @@ package com.example.fairydream.fbproject_v2;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
-import net.sqlcipher.Cursor;
-import net.sqlcipher.database.SQLiteDatabase;
+//import net.sqlcipher.Cursor;
+//import net.sqlcipher.database.SQLiteDatabase;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,9 +26,10 @@ public class DBManager
 
     public DBManager(Context context)
     {
-        SQLiteDatabase.loadLibs(context);
+    //    SQLiteDatabase.loadLibs(context);
         dbHelper = new DBHelper(context);
-        db = dbHelper.getWritableDatabase(DBHelper.SECRET_KEY);
+    //    db = dbHelper.getWritableDatabase(DBHelper.SECRET_KEY);
+        db = dbHelper.getWritableDatabase();
     }
 
 
@@ -114,6 +117,7 @@ public class DBManager
             updateApp(app);
             return;
         }
+        cursor.close();
 
         db.beginTransaction();
         try

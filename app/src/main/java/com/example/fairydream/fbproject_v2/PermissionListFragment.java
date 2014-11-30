@@ -26,6 +26,9 @@ public class PermissionListFragment extends Fragment
 
     private Activity activity;
     private String appId;
+    private HashMap<String,Boolean> permissionMap;
+    private ListView list;
+    private SetPermissionListHandler setPermissionListHandler;
 
   //  private boolean syncChangeSwitch = false;
 
@@ -52,23 +55,38 @@ public class PermissionListFragment extends Fragment
         // TODO Auto-generated method stub
         super.onActivityCreated(savedInstanceState);
 
-        ListView list = (ListView) getActivity().findViewById(R.id.permissionListView);
+        list = (ListView) getActivity().findViewById(R.id.permissionListView);
 
         activity = getActivity();
 
-        HashMap<String,Boolean>permissionHashMap = getPermissionMap(appId);
-
-        PermissionListAdapter listItemAdapter = new PermissionListAdapter(permissionHashMap);
-        list.setAdapter(listItemAdapter);
+        setPermissionListHandler = new SetPermissionListHandler();
+        GetPermissionMap getPermissionMap = new GetPermissionMap();
+        new Thread(getPermissionMap).start();
     }
 
-    private HashMap<String,Boolean> getPermissionMap (String appId)
+    private class SetPermissionListHandler extends Handler
     {
-        DBManager dbManager = new DBManager(getActivity());
-        HashMap<String,Boolean> permissionMap = dbManager.queryApp(appId).get(0).getPermissionMap();
-        dbManager.close();
+        @Override
+        public void handleMessage(Message msg)
+        {
+            super.handleMessage(msg);
+            PermissionListAdapter listItemAdapter = new PermissionListAdapter(permissionMap);
+            list.setAdapter(listItemAdapter);
+        }
+    }
 
-        return permissionMap;
+    private class GetPermissionMap implements Runnable
+    {
+
+        @Override
+        public void run()
+        {
+            DBManager dbManager = new DBManager(getActivity());
+            String token = dbManager.getToken();
+            dbManager.close();
+            permissionMap = ServerConnection.getAppList(token,appId).get(0).getPermissionMap();
+            Message.obtain(setPermissionListHandler,1).sendToTarget();
+        }
     }
 
     private class PermissionListAdapter extends BaseAdapter
@@ -119,7 +137,6 @@ public class PermissionListFragment extends Fragment
             {
                 viewHolder = (ViewHolder)convertView.getTag();
             }
-
             viewHolder.aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
             {
                 @Override
