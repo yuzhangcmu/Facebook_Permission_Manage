@@ -9,7 +9,7 @@
 	<RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FF9900" >
+        android:background="#33B5E5" >
 
         <TextView
             android:id="@+id/usage"
@@ -21,10 +21,11 @@
             android:textColor="#FFFF"
             android:textSize="22sp" />
 	</RelativeLayout>
-     <ListView
+    <ListView
             android:id="@+id/LogListView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></ListView>
+            android:layout_height="wrap_content">
+    </ListView>
 
 
 </LinearLayout>

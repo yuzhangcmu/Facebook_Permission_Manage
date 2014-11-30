@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FF9900" >
+        android:background="#33B5E5" >
 
         <TextView
             android:id="@+id/permission"
@@ -17,7 +17,7 @@
             android:layout_height="42dp"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:text="permission grant"
+            android:text="Permission Grant"
             android:textColor="#FFFF"
             android:textSize="22sp" />
 	</RelativeLayout>
