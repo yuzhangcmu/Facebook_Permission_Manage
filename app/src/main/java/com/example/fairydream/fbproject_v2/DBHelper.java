@@ -1,8 +1,9 @@
 package com.example.fairydream.fbproject_v2;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+
+import net.sqlcipher.database.SQLiteDatabase;
+import net.sqlcipher.database.SQLiteOpenHelper;
 
 /**
  * Created by fairydream on 14-11-11.
@@ -12,15 +13,17 @@ public class DBHelper extends SQLiteOpenHelper
     private final static String DB_NAME ="FB.db";
     private final static int VERSION = 1;
     public final static String[] permissionName= new String[]{"read_contact","read_sms","access_location"};
+    public final static String SECRET_KEY="95279527";
+
 
     public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version)
     {
-        super(context, name, factory, version);
+        super(context, name, null, VERSION, new SQLCipherV3Helper(context));
     }
 
     public DBHelper(Context context)
     {
-        this(context, DB_NAME, null, VERSION);
+        super(context, DB_NAME, null, VERSION, new SQLCipherV3Helper(context));
     }
 
     public DBHelper(Context cxt,int version) {

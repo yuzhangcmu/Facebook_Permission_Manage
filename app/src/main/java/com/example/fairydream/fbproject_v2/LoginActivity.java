@@ -91,7 +91,7 @@ public class LoginActivity extends Activity {
             {
                 case SIGNUP_SUCCESS:
                     DBManager dbManager = new DBManager(LoginActivity.this);
-                    dbManager.addUserToken(msg.obj.toString(),username);
+                    dbManager.addUserToken(username,msg.obj.toString());
                     dbManager.close();
                     Intent intent2 = new Intent();
                     intent2.setClass(LoginActivity.this, AppManagerActivity.class);
@@ -152,7 +152,7 @@ public class LoginActivity extends Activity {
                     {
                         if(signUpResultStems[0].equals("SUCCESS"))
                         {
-                            Message.obtain(signUpHandler, SIGNUP_SUCCESS, signUpResultStems[1]).sendToTarget();
+                            Message.obtain(signUpHandler, SIGNUP_SUCCESS, signUpResultStems[1].trim()).sendToTarget();
                         }
                         else
                         {
@@ -189,10 +189,11 @@ public class LoginActivity extends Activity {
             // Send request to server
             DBManager dbManager = new DBManager(LoginActivity.this);
             String token = dbManager.getToken();
+            String usernameStored = dbManager.getUsername();
             dbManager.close();
             try
             {
-                int signInResult = ServerConnection.signIn(token, username, password);
+                int signInResult = ServerConnection.signIn(token, usernameStored, password);
                 Message.obtain(signInHandler, signInResult).sendToTarget();
             }
             catch(Exception e)

@@ -21,4 +21,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile files('lib/sqlcipher.jar')
+    compile files('lib/commons-codec.jar')
+    compile files('lib/guava-r09.jar')
 }

@@ -264,9 +264,9 @@ public class PermissionAPIActivity extends Activity {
             String token = dbManager.getToken();
             dbManager.close();
 
-            Message.obtain(appAuthenHandler, NEED_NEW_PERMISSION).sendToTarget();
+        //    Message.obtain(appAuthenHandler, NEED_NEW_PERMISSION).sendToTarget();
 
-        /*    int appAuthenResult = 0;
+            int appAuthenResult = 0;
             try
             {
                 appAuthenResult = ServerConnection.appAuthen(token,request);
@@ -275,7 +275,7 @@ public class PermissionAPIActivity extends Activity {
             catch (Exception e)
             {
                 Message.obtain(appAuthenHandler, INTERNET_NOT_CONNECT).sendToTarget();
-            }*/
+            }
         }
     }
 
@@ -312,10 +312,10 @@ public class PermissionAPIActivity extends Activity {
         public void run()
         {
 
-            Message.obtain(appAuthorizeHandler, APP_AUTHORIZE_SUCCESS).sendToTarget();
+         //   Message.obtain(appAuthorizeHandler, APP_AUTHORIZE_SUCCESS).sendToTarget();
 
             // Send request to server
-       /*     DBManager dbManager = new DBManager(PermissionAPIActivity.this);
+            DBManager dbManager = new DBManager(PermissionAPIActivity.this);
             String token = dbManager.getToken();
             int appAuthorizeResult = 0;
             dbManager.close();
@@ -327,7 +327,7 @@ public class PermissionAPIActivity extends Activity {
             catch(Exception e)
             {
                 Message.obtain(appAuthorizeHandler,INTERNET_NOT_CONNECT).sendToTarget();
-            }*/
+            }
 
         }
     }
