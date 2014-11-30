@@ -151,9 +151,9 @@ public class AppListFragment extends Fragment {
             if (appName.equals("FB")) {
                 viewHolder.app_pic.setImageResource(R.drawable.facebook2);
             } else if (appName.equals("HappyCloud")) {
-                viewHolder.app_pic.setImageResource(R.drawable.cloud5);
-            } else {
                 viewHolder.app_pic.setImageResource(R.drawable.cloud);
+            } else {
+                viewHolder.app_pic.setImageResource(R.drawable.cloud3);
             }
 
 
