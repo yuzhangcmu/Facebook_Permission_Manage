@@ -65,9 +65,11 @@ public class ServerConnection
 
     /*
      * Sign in
-     * Return
+     * Return 1 - success
+     *        0 - fail
+     *        -1 - http error
      */
-    public static String signIn(String token, String username, String password)
+    public static int signIn(String token, String username, String password)
     {
         HttpPost httpPost = new HttpPost(serverAddress);
         ArrayList<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
@@ -77,7 +79,7 @@ public class ServerConnection
         pairs.add(new BasicNameValuePair("password", password));
 
         UrlEncodedFormEntity urlEncodedFormEntity = null;
-        String httpResult = null;
+        int httpResult = -1;
         try {
             urlEncodedFormEntity = new UrlEncodedFormEntity(pairs);
             httpPost.setEntity(urlEncodedFormEntity);
@@ -85,7 +87,7 @@ public class ServerConnection
             HttpResponse httpResponse = httpClient.execute(httpPost);
             if (httpResponse.getStatusLine().getStatusCode() == 200)
             {
-                httpResult = EntityUtils.toString(httpResponse.getEntity());
+                httpResult = Integer.valueOf(EntityUtils.toString(httpResponse.getEntity()));
             }
         } catch (ClientProtocolException e) {
             e.printStackTrace();
@@ -98,7 +100,7 @@ public class ServerConnection
     }
 
     /*
-     *
+     * getAppList
      */
     public static ArrayList<App> getAppList(String token, String appId)
     {
@@ -124,12 +126,22 @@ public class ServerConnection
                 while((line = bufferedReader.readLine())!=null)
                 {
                     String[] appInfo = line.split("\t");
-                    if(appInfo.length==3)
+                    if(appInfo.length>=3)
                     {
                         App app = new App();
                         app.setId(appInfo[0]);
                         app.setAppName(appInfo[1]);
                         app.setDescription(appInfo[2]);
+                        HashMap<String,Boolean>permissionMap = new HashMap<String, Boolean>();
+                        for(int i = 3;i < appInfo.length;i ++)
+                        {
+                            String[] permissionItem = appInfo[i].split(":");
+                            if(permissionItem.length==2)
+                            {
+                                permissionMap.put(permissionItem[0],permissionItem[1].equals(1));
+                            }
+                        }
+                        app.setPermissionMap(permissionMap);
                         appArrayList.add(app);
                     }
                 }
@@ -206,8 +218,8 @@ public class ServerConnection
 
     /*
      * add/update an app's permission
-     * return true if succeed
-     *        false if failed
+     * return 1 - succeed
+     *        0 - failed
      */
     public static Boolean addApp(String token, App app)
     {
@@ -225,9 +237,9 @@ public class ServerConnection
         for(Map.Entry entry : entries)
         {
             permissionList.append(entry.getKey())
-                    .append("\t")
-                    .append(String.valueOf(entry.getValue()))
-                    .append("\n");
+                    .append(":")
+                    .append(entry.getValue().equals("true")?1:0)
+                    .append("\t");
         }
         pairs.add(new BasicNameValuePair("permissionList",permissionList.toString()));
 
@@ -262,7 +274,7 @@ public class ServerConnection
     {
         HttpPost httpPost = new HttpPost(serverAddress);
         ArrayList<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
-        pairs.add(new BasicNameValuePair("action", "appAuth"));
+        pairs.add(new BasicNameValuePair("action", "appAuthen"));
         pairs.add(new BasicNameValuePair("token", token));
         pairs.add(new BasicNameValuePair("appId", request.getAppId()));
         pairs.add(new BasicNameValuePair("appName",request.getAppName()));
@@ -300,7 +312,7 @@ public class ServerConnection
     {
         HttpPost httpPost = new HttpPost(serverAddress);
         ArrayList<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
-        pairs.add(new BasicNameValuePair("action", "appAuth"));
+        pairs.add(new BasicNameValuePair("action", "appAuthorize"));
         pairs.add(new BasicNameValuePair("token", token));
         pairs.add(new BasicNameValuePair("password",password));
         pairs.add(new BasicNameValuePair("appId", request.getAppId()));

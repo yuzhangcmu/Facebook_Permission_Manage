@@ -40,6 +40,7 @@ public class DBHelper extends SQLiteOpenHelper
         sql.setLength(0);
 
         // Create permission list table
+
         sql.append("create table AppPermissionTable(")
                 .append("_id char(25),")
                 .append("appName text,")

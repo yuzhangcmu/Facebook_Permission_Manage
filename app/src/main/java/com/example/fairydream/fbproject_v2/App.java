@@ -11,13 +11,6 @@ public class App
     private String name;
     private String description;
     private HashMap<String,Boolean> permissionMap;
-    /*
-        permissionMap:
-            Key: read_sms, read_contact, get_location
-            Value: 0 - not grant
-            Value: 1 - grant
-            Value: 2 - to be decide
-     */
 
     public App()
     {

@@ -85,8 +85,8 @@ public class DBManager
     }
 
    /*
-   * get the username
-   */
+    * get the username
+    */
     public String getUsername()
     {
         String username = null;
@@ -209,7 +209,13 @@ public class DBManager
         }
     }
 
-
+     /*
+        permissionMap:
+            Key: read_sms, read_contact, get_location
+            Value: 0 - not grant
+            Value: 1 - grant
+            Value: 2 - to be decide
+     */
     private HashMap<String,Boolean> dbCursor2appPermissionMap(Cursor cursor)
     {
         HashMap<String, Boolean> appPermissionMap = new HashMap<String, Boolean>();

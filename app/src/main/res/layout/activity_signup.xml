@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/loginlayout"
+    android:id="@+id/signUplayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
@@ -31,11 +31,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Sign In"
+            android:text="Sign Up"
             android:textColor="#8B0000"
             android:textSize="50sp" />
         <EditText
-            android:id="@+id/username_editText"
+            android:id="@+id/username_signUpText"
             android:layout_width="282dp"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_username"
@@ -48,7 +48,7 @@
             android:singleLine="true"/>
 
         <EditText
-            android:id="@+id/password_editText"
+            android:id="@+id/password_signUpText"
             android:layout_width="282dp"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_password"
@@ -61,7 +61,7 @@
             android:singleLine="true"/>
 
         <Button
-            android:id="@+id/sign_in_button"
+            android:id="@+id/sign_up_button"
             android:layout_width="278dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -69,7 +69,7 @@
             android:layout_gravity="center"
             android:textColor="#8B0000"
             android:textSize="30sp"
-            android:text="@string/action_sign_in"/>
+            android:text="@string/action_sign_up"/>
     </LinearLayout>
 
 </LinearLayout>
