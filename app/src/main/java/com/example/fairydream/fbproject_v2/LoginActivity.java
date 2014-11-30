@@ -41,7 +41,7 @@ public class LoginActivity extends Activity {
         DBManager dbManager = new DBManager(this);
         if(!dbManager.isUserRegister())
         {
-            // if it's the first time to launch this permission manager
+            // if it's the first time to app_design this permission manager
             setContentView(R.layout.activity_signup);
             status = (Button) findViewById(R.id.sign_up_button);
             usernameEditText = (EditText) findViewById(R.id.username_signUpText);
