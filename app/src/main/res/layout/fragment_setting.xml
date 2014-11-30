@@ -15,7 +15,7 @@
             android:layout_height="42dp"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:text="setting"
+            android:text="Setting"
             android:textColor="#FFFF"
             android:textSize="22sp" />
 </RelativeLayout>
@@ -30,30 +30,15 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content" >
 
-	        <TextView
-	            android:id="@+id/notification"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignParentLeft="true"
-	            android:layout_marginLeft="10dp"
-	            android:layout_marginTop="10dp"
-	            android:text="Always Notification"
-	            android:textColor="#ff000000"
-	            android:textSize="18sp"
-	             />
+            <Switch
+                android:id="@+id/Switch"
+                android:textColor="#ff000000"
+                android:text="Always Notification"
+                android:textSize="18sp"
+                android:layout_width="fill_parent"
+                android:layout_height="50dip"
 
-		    <ToggleButton
-		        android:id="@+id/notitog"
-		        android:layout_width="50dp"
-		        android:layout_height="25dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="15dp"
-		        android:background="@drawable/toggle_selector"
-		        android:checked="false"
-		        android:textOff=""
-		        android:textOn=""
-                android:layout_alignTop="@+id/notification"
-                android:layout_alignBottom="@+id/notification" />
+                />
 
 		</RelativeLayout>>
 

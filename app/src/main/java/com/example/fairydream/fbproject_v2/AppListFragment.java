@@ -153,7 +153,7 @@ public class AppListFragment extends Fragment {
             } else if (appName.equals("HappyCloud")) {
                 viewHolder.app_pic.setImageResource(R.drawable.cloud);
             } else {
-                viewHolder.app_pic.setImageResource(R.drawable.cloud3);
+                viewHolder.app_pic.setImageResource(R.drawable.tfboy3);
             }
 
 
