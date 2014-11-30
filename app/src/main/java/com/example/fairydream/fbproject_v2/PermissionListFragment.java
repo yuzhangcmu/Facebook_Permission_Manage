@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -113,6 +114,10 @@ public class PermissionListFragment extends Fragment
                 convertView = LayoutInflater.from(activity).inflate(R.layout.permission_item,null);
                 viewHolder = new ViewHolder();
                 viewHolder.aSwitch = (Switch)convertView.findViewById(R.id.Switch);
+
+                // added by Yu Zhang.
+                viewHolder.permission_pic = (ImageView)convertView.findViewById(R.id.permission_pic);
+
                 convertView.setTag(viewHolder);
             }
             else
@@ -133,8 +138,20 @@ public class PermissionListFragment extends Fragment
                     new Thread(changePermissionThread).start();
                 }
             });
-            viewHolder.aSwitch.setText(permission);
+
             viewHolder.aSwitch.setChecked(permissionMap.get(permission));
+
+            // Added by Yu Zhang.
+            if (permission.equals("read_sms")) {
+                viewHolder.permission_pic.setImageResource(R.drawable.sms2);
+                viewHolder.aSwitch.setText("Read SMS");
+            } else if (permission.equals("access_location")) {
+                viewHolder.permission_pic.setImageResource(R.drawable.location2);
+                viewHolder.aSwitch.setText("Location Service");
+            } else if (permission.equals("read_contact")){
+                viewHolder.permission_pic.setImageResource(R.drawable.contact4);
+                viewHolder.aSwitch.setText("Contacts");
+            }
 
             return convertView;
         }
@@ -142,6 +159,7 @@ public class PermissionListFragment extends Fragment
         private class ViewHolder
         {
             Switch aSwitch;
+            ImageView permission_pic;
         }
     }
 

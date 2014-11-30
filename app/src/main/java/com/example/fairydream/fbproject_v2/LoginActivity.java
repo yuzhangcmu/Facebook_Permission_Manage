@@ -140,7 +140,7 @@ public class LoginActivity extends Activity {
         public void run()
         {
 
-    //        Message.obtain(signUpHandler, SIGNUP_SUCCESS, "weeweew").sendToTarget();
+            Message.obtain(signUpHandler, SIGNUP_SUCCESS, "weeweew").sendToTarget();
 
             try
             {
@@ -184,7 +184,7 @@ public class LoginActivity extends Activity {
         public void run()
         {
 
-    //      Message.obtain(signInHandler, SIGNIN_SUCCESS).sendToTarget();
+          Message.obtain(signInHandler, SIGNIN_SUCCESS).sendToTarget();
 
             // Send request to server
             DBManager dbManager = new DBManager(LoginActivity.this);
