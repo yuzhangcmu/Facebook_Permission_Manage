@@ -51,9 +51,17 @@ public class AppManagerActivity extends Activity {
         happyCloudApp.setPermissionMap(happyCloudPermissionMap);
         happyCloudApp.setDescription("Eat less... Exercise more...");
 
+        HashMap<String,Boolean> tfboysPermissionMap = new HashMap<String, Boolean>();
+        happyCloudPermissionMap.put("read_contact",false);
+        happyCloudPermissionMap.put("read_sms",false);
+        App tfboysApp = new App("20230806", "TFBOYS");
+        tfboysApp.setPermissionMap(tfboysPermissionMap);
+        tfboysApp.setDescription("Ten-year Promise");
+
         DBManager dbManager = new DBManager(this);
         dbManager.addApp(fbApp);
         dbManager.addApp(happyCloudApp);
+        dbManager.addApp(tfboysApp);
 
         Date curDate = new  Date(System.currentTimeMillis());
 
