@@ -36,14 +36,10 @@ public class PermissionListFragment extends Fragment
     private final int PERMISSION_CHANGE_SUCCESS = 1;
     private final int PERMISSION_CHANGE_FAILURE = 0;
 
-    // Modified by Yu Zhang.
-    private final boolean debug = false;
-
     public PermissionListFragment()
     {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,6 +87,10 @@ public class PermissionListFragment extends Fragment
             if (ServerConnection.getAppList(token,appId).size() != 0) {
                 permissionMap = ServerConnection.getAppList(token,appId).get(0).getPermissionMap();
                 Message.obtain(setPermissionListHandler,1).sendToTarget();
+            } else {
+                if (App.debug) {
+
+                }
             }
         }
     }

@@ -32,9 +32,6 @@ public class LoginActivity extends Activity {
     private final int SIGNIN_FAILURE = 0;
     private final int INTERNET_NOT_CONNECT = -1;
 
-    // Modified by Yu Zhang.
-    private final boolean debug = true;
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -183,7 +180,7 @@ public class LoginActivity extends Activity {
         public void run()
         {
             // Modified by Yu Zhang.
-            if (debug) {
+            if (App.debug) {
                 Message.obtain(signUpHandler, SIGNUP_SUCCESS, "weeweew").sendToTarget();
                 return;
             }
@@ -229,7 +226,7 @@ public class LoginActivity extends Activity {
         public void run()
         {
             // Modified by Yu Zhang.
-            if (debug) {
+            if (App.debug) {
                 Message.obtain(signInHandler, SIGNIN_SUCCESS).sendToTarget();
             } else {
                 // Send request to server

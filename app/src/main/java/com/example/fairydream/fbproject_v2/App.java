@@ -7,6 +7,9 @@ import java.util.HashMap;
  */
 public class App
 {
+    // Modified by Yu Zhang.
+    public static final boolean debug = true;
+
     private String _id;
     private String name;
     private String description;
