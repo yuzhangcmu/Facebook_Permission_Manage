@@ -25,51 +25,40 @@
         android:id="@+id/email_login_form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:weightSum="1">
-
+        android:orientation="vertical">
         <TextView
+            android:id="@+id/signin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Permission Manager"
-            android:id="@+id/textView"
-            android:textSize="25dp"
-            android:paddingBottom="30dp"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center"
+            android:text="Sign In"
+            android:textColor="#000000"
+            android:textSize="40sp" />
 
-        <ImageView
-            android:id="@+id/app_pic"
-            android:layout_width="247dp"
-            android:layout_height="126dp"
-            android:layout_gravity="center_horizontal"
-            android:contentDescription="The launch picture"
-            android:src="@drawable/lock"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+        <EditText
+            android:id="@+id/password_signInText"
+            android:layout_width="282dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_password"
+            android:maxLines="1"
+            android:gravity="center"
+            android:inputType="textPassword"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:ellipsize="start"
+            android:singleLine="true"/>
 
+        <Button
+            android:id="@+id/sign_in_button"
+            android:layout_width="278dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/text_view_bar"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:textColor="#33B5E5"
+            android:text="@string/action_sign_in"/>
     </LinearLayout>
-
-    <EditText
-        android:id="@+id/password_signInText"
-        android:layout_width="282dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/prompt_password"
-        android:maxLines="1"
-        android:gravity="center"
-        android:inputType="textPassword"
-        android:layout_marginTop="20dp"
-        android:ellipsize="start"
-        android:singleLine="true"/>
-
-    <Button
-        android:id="@+id/sign_in_button"
-        android:layout_width="278dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/text_view_bar"
-        android:textSize="20sp"
-        android:textColor="#33B5E5"
-        android:text="@string/action_sign_in"/>
 
 </LinearLayout>
 

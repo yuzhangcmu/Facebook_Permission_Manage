@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -27,19 +26,18 @@ public class PermissionListFragment extends Fragment
 
     private Activity activity;
     private String appId;
-    private HashMap<String,Boolean> permissionMap;
-    private ListView list;
-    private SetPermissionListHandler setPermissionListHandler;
 
   //  private boolean syncChangeSwitch = false;
 
     private final int PERMISSION_CHANGE_SUCCESS = 1;
     private final int PERMISSION_CHANGE_FAILURE = 0;
 
+
     public PermissionListFragment()
     {
         // Required empty public constructor
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,45 +52,23 @@ public class PermissionListFragment extends Fragment
         // TODO Auto-generated method stub
         super.onActivityCreated(savedInstanceState);
 
-        list = (ListView) getActivity().findViewById(R.id.permissionListView);
+        ListView list = (ListView) getActivity().findViewById(R.id.permissionListView);
 
         activity = getActivity();
 
-        setPermissionListHandler = new SetPermissionListHandler();
-        GetPermissionMap getPermissionMap = new GetPermissionMap();
-        new Thread(getPermissionMap).start();
+        HashMap<String,Boolean>permissionHashMap = getPermissionMap(appId);
+
+        PermissionListAdapter listItemAdapter = new PermissionListAdapter(permissionHashMap);
+        list.setAdapter(listItemAdapter);
     }
 
-    private class SetPermissionListHandler extends Handler
+    private HashMap<String,Boolean> getPermissionMap (String appId)
     {
-        @Override
-        public void handleMessage(Message msg)
-        {
-            super.handleMessage(msg);
-            PermissionListAdapter listItemAdapter = new PermissionListAdapter(permissionMap);
-            list.setAdapter(listItemAdapter);
-        }
-    }
+        DBManager dbManager = new DBManager(getActivity());
+        HashMap<String,Boolean> permissionMap = dbManager.queryApp(appId).get(0).getPermissionMap();
+        dbManager.close();
 
-    private class GetPermissionMap implements Runnable
-    {
-
-        @Override
-        public void run()
-        {
-            DBManager dbManager = new DBManager(getActivity());
-            String token = dbManager.getToken();
-            dbManager.close();
-            // Modified by Yu Zhang.
-            if (ServerConnection.getAppList(token,appId).size() != 0) {
-                permissionMap = ServerConnection.getAppList(token,appId).get(0).getPermissionMap();
-                Message.obtain(setPermissionListHandler,1).sendToTarget();
-            } else {
-                if (App.debug) {
-
-                }
-            }
-        }
+        return permissionMap;
     }
 
     private class PermissionListAdapter extends BaseAdapter
@@ -137,43 +113,28 @@ public class PermissionListFragment extends Fragment
                 convertView = LayoutInflater.from(activity).inflate(R.layout.permission_item,null);
                 viewHolder = new ViewHolder();
                 viewHolder.aSwitch = (Switch)convertView.findViewById(R.id.Switch);
-
-                // added by Yu Zhang.
-                viewHolder.permission_pic = (ImageView)convertView.findViewById(R.id.permission_pic);
-
                 convertView.setTag(viewHolder);
             }
             else
             {
                 viewHolder = (ViewHolder)convertView.getTag();
             }
+
             viewHolder.aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
             {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
                 {
-                //change permission
-                PermissionChangeHandler permissionChangeHandler = new PermissionChangeHandler();
-                permissionChangeHandler.setButtonView(buttonView);
-                permissionChangeHandler.setChecked(isChecked);
-                PermissionChangeThread changePermissionThread = new PermissionChangeThread(appId,permission,isChecked,permissionChangeHandler);
-                new Thread(changePermissionThread).start();
+                    //change permission
+                    PermissionChangeHandler permissionChangeHandler = new PermissionChangeHandler();
+                    permissionChangeHandler.setButtonView(buttonView);
+                    permissionChangeHandler.setChecked(isChecked);
+                    PermissionChangeThread changePermissionThread = new PermissionChangeThread(appId,permission,isChecked,permissionChangeHandler);
+                    new Thread(changePermissionThread).start();
                 }
             });
-
+            viewHolder.aSwitch.setText(permission);
             viewHolder.aSwitch.setChecked(permissionMap.get(permission));
-
-            // Added by Yu Zhang.
-            if (permission.equals("read_sms")) {
-                viewHolder.permission_pic.setImageResource(R.drawable.sms2);
-                viewHolder.aSwitch.setText("Read SMS");
-            } else if (permission.equals("access_location")) {
-                viewHolder.permission_pic.setImageResource(R.drawable.location2);
-                viewHolder.aSwitch.setText("Location Service");
-            } else if (permission.equals("read_contact")){
-                viewHolder.permission_pic.setImageResource(R.drawable.contact4);
-                viewHolder.aSwitch.setText("Contacts");
-            }
 
             return convertView;
         }
@@ -181,7 +142,6 @@ public class PermissionListFragment extends Fragment
         private class ViewHolder
         {
             Switch aSwitch;
-            ImageView permission_pic;
         }
     }
 

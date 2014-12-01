@@ -33,6 +33,7 @@ public class PermissionAPIActivity extends Activity {
     private int requestType;
     private String password;
     private Request request;
+    private boolean startAccessResource = false;
 
     private RequestSolver requestSolver;
     private ArrayList<String> permissionRequestList;
@@ -40,8 +41,8 @@ public class PermissionAPIActivity extends Activity {
     private AppAuthenHandler appAuthenHandler;
     private AppAuthorizeHandler appAuthorizeHandler;
 
+    private TextView textView;
     private View dialogLayout;
-    DialogInterface mDialogInterface;
 
     private final int INTERNET_NOT_CONNECT = -1;
 
@@ -122,13 +123,13 @@ public class PermissionAPIActivity extends Activity {
                 EditText passwordEditText = (EditText) dialogLayout.findViewById(R.id.password_permission_api);
                 password = passwordEditText.getText().toString();
                 appAuthorizeHandler = new AppAuthorizeHandler();
+                startAccessResource = true;
                 AppAuthorizeThread appAuthorizeThread = new AppAuthorizeThread();
                 new Thread(appAuthorizeThread).start();
                 try {
                     Field field = dialogInterface.getClass().getSuperclass().getDeclaredField("mShowing");
                     field.setAccessible(true);
                     field.set(dialogInterface, false);
-                    mDialogInterface = dialogInterface;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -140,13 +141,6 @@ public class PermissionAPIActivity extends Activity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 setResult(Activity.RESULT_CANCELED);
-                try {
-                    Field field = mDialogInterface.getClass().getSuperclass().getDeclaredField("mShowing");
-                    field.setAccessible(true);
-                    field.set(mDialogInterface, true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
                 finish();
             }
         });
@@ -155,8 +149,11 @@ public class PermissionAPIActivity extends Activity {
             @Override
             public void onDismiss(DialogInterface dialogInterface)
             {
-            setResult(Activity.RESULT_CANCELED);
-            finish();
+         //       if(!startAccessResource)
+         //       {
+                    setResult(Activity.RESULT_CANCELED);
+                    finish();
+         //       }
             }
         });
         builder.create().show();
@@ -195,6 +192,7 @@ public class PermissionAPIActivity extends Activity {
             switch (msg.what)
             {
                 case GET_RESOURCE_SUCCESS:
+
                     resultIntent.putExtra("contentResult", msg.obj.toString());
                     setResult(Activity.RESULT_OK, resultIntent);
                     break;
@@ -202,19 +200,13 @@ public class PermissionAPIActivity extends Activity {
                 case GET_RESOURCE_FAILURE:
                     break;
             }
-            try {
-                Field field = mDialogInterface.getClass().getSuperclass().getDeclaredField("mShowing");
-                field.setAccessible(true);
-                field.set(mDialogInterface, true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
             finish();
         }
     }
 
     class GetResourceThread implements Runnable
     {
+
         @Override
         public void run()
         {
@@ -241,13 +233,6 @@ public class PermissionAPIActivity extends Activity {
             {
                 case PERMISSION_NOT_ALLOWED:
                     setResult(Activity.RESULT_CANCELED);
-                    try {
-                        Field field = mDialogInterface.getClass().getSuperclass().getDeclaredField("mShowing");
-                        field.setAccessible(true);
-                        field.set(mDialogInterface, true);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
                     finish();
                     break;
                 case PERMISSION_ALLOWED:
@@ -261,18 +246,13 @@ public class PermissionAPIActivity extends Activity {
                 case INTERNET_NOT_CONNECT:
                     Toast.makeText(PermissionAPIActivity.this, "Please Check Your Internet Connection.",Toast.LENGTH_LONG).show();
                     setResult(Activity.RESULT_CANCELED);
-                    try {
-                        Field field = mDialogInterface.getClass().getSuperclass().getDeclaredField("mShowing");
-                        field.setAccessible(true);
-                        field.set(mDialogInterface, true);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
                     finish();
                     break;
             }
         }
     }
+
+
 
     class AppAuthenThread implements Runnable
     {
@@ -320,13 +300,6 @@ public class PermissionAPIActivity extends Activity {
                 case INTERNET_NOT_CONNECT:
                     Toast.makeText(PermissionAPIActivity.this, "Please Check Your Internet Connection.",Toast.LENGTH_LONG).show();
                     setResult(Activity.RESULT_CANCELED);
-                    try {
-                        Field field = mDialogInterface.getClass().getSuperclass().getDeclaredField("mShowing");
-                        field.setAccessible(true);
-                        field.set(mDialogInterface, true);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
                     finish();
                     break;
             }

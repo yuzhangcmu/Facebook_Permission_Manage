@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.fairydream.fbproject_v2"
-        minSdkVersion 17
+        minSdkVersion 14
         targetSdkVersion 20
         versionCode 1
         versionName "1.0"

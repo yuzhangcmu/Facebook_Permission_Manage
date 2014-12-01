@@ -28,6 +28,8 @@ public class AppListFragment extends Fragment {
     private final int SUCCESS = 1;
     private final int FAILURE = 0;
 
+
+
     public AppListFragment() {
         // Required empty public constructor
     }
@@ -45,6 +47,8 @@ public class AppListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         activity = getActivity();
         list = (ListView) getActivity().findViewById(R.id.AppListView);
+
+
 
      //   getAppListHandler = new GetAppListHandler();
      //   GetAppListThread getAppListThread = new GetAppListThread();
@@ -149,8 +153,11 @@ public class AppListFragment extends Fragment {
             } else if (appName.equals("HappyCloud")) {
                 viewHolder.app_pic.setImageResource(R.drawable.cloud);
             } else {
-                viewHolder.app_pic.setImageResource(R.drawable.tfboy3);
+                viewHolder.app_pic.setImageResource(R.drawable.cloud3);
             }
+
+
+            //ImageView head_portrait = (ImageView) layout.findViewById(R.id.head_portrait);
 
             return convertView;
         }

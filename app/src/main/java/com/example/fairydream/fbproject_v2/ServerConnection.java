@@ -138,7 +138,7 @@ public class ServerConnection
                             String[] permissionItem = appInfo[i].split(":");
                             if(permissionItem.length==2)
                             {
-                                permissionMap.put(permissionItem[0],permissionItem[1].equals("1"));
+                                permissionMap.put(permissionItem[0],permissionItem[1].equals(1));
                             }
                         }
                         app.setPermissionMap(permissionMap);
@@ -238,7 +238,7 @@ public class ServerConnection
         {
             permissionList.append(entry.getKey())
                     .append(":")
-                    .append(entry.getValue().equals(true)?1:0)
+                    .append(entry.getValue().equals("true")?1:0)
                     .append("\t");
         }
         pairs.add(new BasicNameValuePair("permissionList",permissionList.toString()));

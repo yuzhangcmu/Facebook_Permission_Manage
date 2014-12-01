@@ -113,9 +113,7 @@ public class AppManagerActivity extends Activity {
             DBManager dbManager = new DBManager(AppManagerActivity.this);
             String token = dbManager.getToken();
 
-            Message.obtain(syncHandler,SYNC_SUCCESS).sendToTarget();
-
-         /*   try
+            try
             {
                 ArrayList<App> appArrayList = ServerConnection.getAppList(token,null);
                 ArrayList<RequestLog> requestLogsArrayList = ServerConnection.getRequestLogs(token, null);
@@ -129,7 +127,7 @@ public class AppManagerActivity extends Activity {
             {
                 Message.obtain(syncHandler,SYNC_FAILURE).sendToTarget();
             }
-            dbManager.close();*/
+            dbManager.close();
 
         }
     }
