@@ -1,6 +1,8 @@
 package com.example.fairydream.fbproject_v2;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,7 +32,8 @@ public class LoginActivity extends Activity {
     private final int SIGNIN_FAILURE = 0;
     private final int INTERNET_NOT_CONNECT = -1;
 
-
+    // Modified by Yu Zhang.
+    private final boolean debug = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -99,10 +102,30 @@ public class LoginActivity extends Activity {
                     startActivity(intent2);
                     break;
                 case SIGNUP_FAILURE:
-                    status.setText("Sign up failed." + msg.obj.toString());
+                    //status.setText("Sign up failed." + msg.obj.toString());
+                    AlertDialog alertDialog;
+                    alertDialog = new AlertDialog.Builder(LoginActivity.this).create();
+                    alertDialog.setTitle("Sign up failed!");
+                    alertDialog.setMessage(msg.obj.toString());
+                    alertDialog.setButton("Ok", new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    } });
+                    alertDialog.show();
                     break;
                 case INTERNET_NOT_CONNECT:
-                    status.setText("Sign up failed. Please Check Your Internet Connection.");
+//                    status.setText("Sign up failed. Please Check Your Internet Connection.");
+                    AlertDialog alertDialog1;
+                    alertDialog1 = new AlertDialog.Builder(LoginActivity.this).create();
+                    alertDialog1.setTitle("Sign up failed!");
+                    alertDialog1.setMessage("Internet Connection.");
+                    alertDialog1.setButton("Ok", new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    } });
+                    alertDialog1.show();
                     break;
             }
         }
@@ -123,10 +146,30 @@ public class LoginActivity extends Activity {
                     startActivity(intent1);
                     break;
                 case SIGNIN_FAILURE:
-                    status.setText("Sign in failed. Incorrect password");
+                    //status.setText("Sign in failed. Incorrect password");
+                    AlertDialog alertDialog1;
+                    alertDialog1 = new AlertDialog.Builder(LoginActivity.this).create();
+                    alertDialog1.setTitle("Sign in failed :(");
+                    alertDialog1.setMessage("Incorrect password");
+                    alertDialog1.setButton("Ok", new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    } });
+                    alertDialog1.show();
                     break;
                 case INTERNET_NOT_CONNECT:
-                    status.setText("Sign in failed. Please Check Your Internet Connection.");
+                    //status.setText("Sign in failed. Please Check Your Internet Connection.");
+                    AlertDialog alertDialog;
+                    alertDialog = new AlertDialog.Builder(LoginActivity.this).create();
+                    alertDialog.setTitle("Sign in failed!");
+                    alertDialog.setMessage("No Internet Connection");
+                    alertDialog.setButton("Ok", new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    } });
+                    alertDialog.show();
                     break;
             }
         }
@@ -139,8 +182,11 @@ public class LoginActivity extends Activity {
         @Override
         public void run()
         {
-
-            Message.obtain(signUpHandler, SIGNUP_SUCCESS, "weeweew").sendToTarget();
+            // Modified by Yu Zhang.
+            if (debug) {
+                Message.obtain(signUpHandler, SIGNUP_SUCCESS, "weeweew").sendToTarget();
+                return;
+            }
 
             try
             {
@@ -177,30 +223,30 @@ public class LoginActivity extends Activity {
         }
     }
 
-
     class SignInThread implements Runnable {
 
         @Override
         public void run()
         {
-
-          Message.obtain(signInHandler, SIGNIN_SUCCESS).sendToTarget();
-
-            // Send request to server
-            DBManager dbManager = new DBManager(LoginActivity.this);
-            String token = dbManager.getToken();
-            String usernameStored = dbManager.getUsername();
-            dbManager.close();
-            try
-            {
-                int signInResult = ServerConnection.signIn(token, usernameStored, password);
-                Message.obtain(signInHandler, signInResult).sendToTarget();
-            }
-            catch(Exception e)
-            {
-                Message.obtain(signInHandler, INTERNET_NOT_CONNECT).sendToTarget();
+            // Modified by Yu Zhang.
+            if (debug) {
+                Message.obtain(signInHandler, SIGNIN_SUCCESS).sendToTarget();
+            } else {
+                // Send request to server
+                DBManager dbManager = new DBManager(LoginActivity.this);
+                String token = dbManager.getToken();
+                String usernameStored = dbManager.getUsername();
+                dbManager.close();
+                try
+                {
+                    int signInResult = ServerConnection.signIn(token, usernameStored, password);
+                    Message.obtain(signInHandler, signInResult).sendToTarget();
+                }
+                catch(Exception e)
+                {
+                    Message.obtain(signInHandler, INTERNET_NOT_CONNECT).sendToTarget();
+                }
             }
         }
     }
-
 }

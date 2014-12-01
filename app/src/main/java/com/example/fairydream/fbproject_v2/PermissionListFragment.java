@@ -36,6 +36,8 @@ public class PermissionListFragment extends Fragment
     private final int PERMISSION_CHANGE_SUCCESS = 1;
     private final int PERMISSION_CHANGE_FAILURE = 0;
 
+    // Modified by Yu Zhang.
+    private final boolean debug = false;
 
     public PermissionListFragment()
     {
@@ -85,8 +87,11 @@ public class PermissionListFragment extends Fragment
             DBManager dbManager = new DBManager(getActivity());
             String token = dbManager.getToken();
             dbManager.close();
-            permissionMap = ServerConnection.getAppList(token,appId).get(0).getPermissionMap();
-            Message.obtain(setPermissionListHandler,1).sendToTarget();
+            // Modified by Yu Zhang.
+            if (ServerConnection.getAppList(token,appId).size() != 0) {
+                permissionMap = ServerConnection.getAppList(token,appId).get(0).getPermissionMap();
+                Message.obtain(setPermissionListHandler,1).sendToTarget();
+            }
         }
     }
 
@@ -147,12 +152,12 @@ public class PermissionListFragment extends Fragment
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
                 {
-                    //change permission
-                    PermissionChangeHandler permissionChangeHandler = new PermissionChangeHandler();
-                    permissionChangeHandler.setButtonView(buttonView);
-                    permissionChangeHandler.setChecked(isChecked);
-                    PermissionChangeThread changePermissionThread = new PermissionChangeThread(appId,permission,isChecked,permissionChangeHandler);
-                    new Thread(changePermissionThread).start();
+                //change permission
+                PermissionChangeHandler permissionChangeHandler = new PermissionChangeHandler();
+                permissionChangeHandler.setButtonView(buttonView);
+                permissionChangeHandler.setChecked(isChecked);
+                PermissionChangeThread changePermissionThread = new PermissionChangeThread(appId,permission,isChecked,permissionChangeHandler);
+                new Thread(changePermissionThread).start();
                 }
             });
 
